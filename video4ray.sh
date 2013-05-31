@@ -37,7 +37,7 @@ do
         sox tmp.wav tmp1.wav --norm --show-progress
         rm tmp.wav
     # Поехали!
-        ffmpeg -i "$FILE" -i tmp.wav $KEYS -map 0:0 -map 1:0 "$OUTNAME"
+        ffmpeg -i "$FILE" -i tmp1.wav $KEYS -map 0:0 -map 1:0 "$OUTNAME"
         rm tmp1.wav
     fi
 done
