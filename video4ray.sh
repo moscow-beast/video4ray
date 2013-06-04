@@ -32,7 +32,7 @@ do
         touch ".$FILE.lock"
         touch ".$OUTNAME.lock"
     # У меня на телефоне и/или в наушниках тихий звук, поэтому мы сначала вынем дорожку:
-        ffmpeg -i "$FILE" tmp.wav
+        ffmpeg -i "$FILE" -ac 2 tmp.wav
     # Нормализуем ее sox'ом:
         sox tmp.wav tmp1.wav --norm --show-progress
         rm tmp.wav
