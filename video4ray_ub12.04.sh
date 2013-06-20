@@ -2,7 +2,6 @@
 MAXWIDTH=860
 MAXHEIGHT=480
 EXTENSION_PATTERN="[MmAaFfWw][KkVvPpLlMm][VvIiGg4]" # Охватывет большую часть расширений видофайлов
-PRESET=normal # Зависит от версии ffmpeg или avconv
 AUDIO_BITRATE=128k # Зависит от версии ffmpeg или avconv
 VIDEO_BITRATE=1024k # Зависит от версии ffmpeg или avconv
 for FILE in *.$EXTENSION_PATTERN
@@ -23,7 +22,7 @@ do
 # Пик Балмера кончился
     POSTFIX="-${OUTSIZEX}x${OUTSIZEY}.mp4"
 # Зависит от версии ffmpeg или avconv. Собственно тут весь основной тюнинг:
-    KEYS="-acodec libfaac -ac 2 -ar 48000 -ab $AUDIO_BITRATE -vcodec libx264 -vpre $PRESET -vpre main -level 30 -refs 3 -flags2 -bpyramid -b $VIDEO_BITRATE -r 25 -s ${OUTSIZEX}x${OUTSIZEY} -threads 0 -aspect ${OUTSIZEX}:${OUTSIZEY}"
+    KEYS="-acodec libfaac -ac 2 -ar 48000 -b:a $AUDIO_BITRATE -vcodec libx264 -profile:v main -level 30 -refs 3 -flags2 -bpyramid -b:v $VIDEO_BITRATE -r 25 -s ${OUTSIZEX}x${OUTSIZEY} -threads 0 -aspect ${OUTSIZEX}:${OUTSIZEY} -map 0:0 -map 0:1"
     OUTNAME=`echo $FILE | sed s/\\\.$EXTENSION_PATTERN/$POSTFIX/g` # \\\Заэкранировали точку капитально, иначе может вкорячить постфикс в середину названия файла
     if [ -f ".$FILE.lock" ] # Что-бы не пытаться кодировать файлы закодированные до отключения электричества. Локи файла кодировавшегося во время инцедента и недокодированный огрызок нужно удалить вручную
     then
