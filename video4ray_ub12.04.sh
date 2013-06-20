@@ -22,7 +22,7 @@ do
 # Пик Балмера кончился
     POSTFIX="-${OUTSIZEX}x${OUTSIZEY}.mp4"
 # Зависит от версии ffmpeg или avconv. Собственно тут весь основной тюнинг:
-    KEYS="-acodec libfaac -ac 2 -ar 48000 -b:a $AUDIO_BITRATE -vcodec libx264 -profile:v main -level 30 -refs 3 -flags2 -bpyramid -b:v $VIDEO_BITRATE -r 25 -s ${OUTSIZEX}x${OUTSIZEY} -threads 0 -aspect ${OUTSIZEX}:${OUTSIZEY} -map 0:0 -map 0:1"
+    KEYS="-acodec libfaac -ac 2 -ar 48000 -b:a $AUDIO_BITRATE -vcodec libx264 -profile:v main -level 30 -refs 3 -flags2 -bpyramid -b:v $VIDEO_BITRATE -r 25 -s ${OUTSIZEX}x${OUTSIZEY} -threads 0 -aspect ${OUTSIZEX}:${OUTSIZEY}"
     OUTNAME=`echo $FILE | sed s/\\\.$EXTENSION_PATTERN/$POSTFIX/g` # \\\Заэкранировали точку капитально, иначе может вкорячить постфикс в середину названия файла
     if [ -f ".$FILE.lock" ] # Что-бы не пытаться кодировать файлы закодированные до отключения электричества. Локи файла кодировавшегося во время инцедента и недокодированный огрызок нужно удалить вручную
     then
@@ -31,7 +31,7 @@ do
         touch ".$FILE.lock"
         touch ".$OUTNAME.lock"
     # У меня на телефоне и/или в наушниках тихий звук, поэтому мы сначала вынем дорожку:
-        avconv -i "$FILE" -ac 2 tmp.wav
+        avconv -i "$FILE" -ac 2 -map 0:a:0 tmp.wav
     # Нормализуем ее sox'ом:
         sox tmp.wav tmp1.wav --norm --show-progress
         rm tmp.wav
