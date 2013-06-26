@@ -1,25 +1,41 @@
 video4ray
 =========
 
-Bash script for batch converig videos for mobile devices
+Bash script for batch convertig videos for mobile devices
 
-For first time docs and comentarys will be in Russian. Sorry.
+Version for Ubuntu 10.04
+------------------------
 
-Версия для для Ubuntu 10.04
 video4ray_ub10.04.sh
-Зависимости:
-ffprobe
-ffmpeg
-sox
 
-Версия для для Ubuntu 12.04
+Dependences:
+
+* ffprobe
+* ffmpeg
+* sox
+
+Version for Ubuntu 12.04
+------------------------
+
 video4ray_ub12.04.sh
-Зависимости:
-avprobe
-avconv
-sox
 
-Вводная.
-Для работы требуется ffmpeg или avconv собранными
-согласно данной инструкции:
-http://ru-ubuntu.livejournal.com/581553.html
+Dependences:
+
+* avprobe
+* avconv
+* sox
+
+Notice
+------
+
+ffmpeg or avconv must be built with lix264 and libfaac support
+
+For example:
+
+
+    sudo apt-get install build-essential fakeroot dpkg-dev
+    sudo apt-get build-dep ffmpeg
+    sudo apt-get install libx264-dev libfaac-dev
+    apt-get source ffmpeg
+    cd ffmpeg-0.5.1/
+    DEB_BUILD_OPTIONS="--enable-libx264 --enable-libfaac" fakeroot debian/rules binary
