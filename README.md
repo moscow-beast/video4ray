@@ -28,7 +28,7 @@ Dependences:
 Notice
 ------
 
-ffmpeg or avconv must be built with lix264 and libfaac support
+ffmpeg or avconv must be built with libx264 and libfaac support
 
 For example:
 
